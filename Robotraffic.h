@@ -31,9 +31,11 @@
 class Robot
 {
 private:
-    const double P = 0.5;
-    const double I = 0.1;
-    const double D = 0.8;
+    double* const P = nullptr;
+    double* const I = nullptr;
+    double* const D = nullptr;
+	
+	int MaxSpeed = 0;
     
     long int TotalError = 0;
     int DeriveError = 0;
@@ -63,11 +65,22 @@ private:
     void Drive(int Speed);
 
 public:
-    Robot()
+    Robot(double P, double I, double D, int MaxSpeed = 100)
     {
+        *(this->P) = P;
+        *(this->I) = I;
+        *(this->D) = D;
+		this->MaxSpeed = MaxSpeed;
         pinMode(RED_LED, OUTPUT);
         pinMode(YELLOW_LED, OUTPUT);
         pinMode(GREEN_LED, OUTPUT);
+    }
+
+    ~Robot()
+    {
+        free(P);
+        free(I);
+        free(D);
     }
     
     void AverageSen();
