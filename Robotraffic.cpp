@@ -47,9 +47,9 @@ void Robot::AverageSen()
         {
             Sum += analogRead(this->Sens[i][PIN]);
         }
-		char[50] string;
+		char string[50];
 		sprintf(string, "Sensor %d 400 readings average: %d", i, int(double(Sum)/400));
-        Serial.print(string);
+        Serial.println(string);
     }
 }
 
